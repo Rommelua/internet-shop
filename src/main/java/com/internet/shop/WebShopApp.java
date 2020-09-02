@@ -9,6 +9,7 @@ public class WebShopApp {
 
     public static void main(String[] args) {
         ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+
         productService.create(new Product("BMW 320", 50_000));
         productService.create(new Product("BMW 530", 75_000));
         productService.create(new Product("BMW X5M50D", 120_000));
@@ -17,8 +18,8 @@ public class WebShopApp {
         System.out.println();
 
         System.out.println("Changing name from BMW 530 to BMW 530D:");
-        Product productToUpdate = productService.getById(2L);
-        productToUpdate.setName("BMW 530D");
+        Product productToUpdate = new Product("BMW 530D", 75_000);
+        productToUpdate.setId(2L);
         productService.update(productToUpdate);
         productService.getAll().forEach(System.out::println);
         System.out.println();
