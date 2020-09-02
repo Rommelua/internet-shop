@@ -1,7 +1,5 @@
 package com.internet.shop.model;
 
-import java.math.BigDecimal;
-
 public class Product {
     private Long id;
     private String name;

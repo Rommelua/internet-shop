@@ -1,4 +1,5 @@
 package com.internet.shop.lib;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -61,13 +62,14 @@ public class Injector {
             Class<?>[] interfaces = clazz.getInterfaces();
             for (Class<?> singleInterface : interfaces) {
                 if (singleInterface.equals(certainInterface)
-                    && (clazz.isAnnotationPresent(Service.class)
+                        && (clazz.isAnnotationPresent(Service.class)
                         || clazz.isAnnotationPresent(Dao.class))) {
                     if (correctClass == null) {
                         correctClass = clazz;
                     } else {
-                        throw new RuntimeException("Two or more classes that implement interface "
-                                                   + certainInterface.getName() + " has annotation Dao or Service)");
+                        throw new RuntimeException(
+                                "Two or more classes that implement interface "
+                                + certainInterface.getName() + " has annotation Dao or Service)");
                     }
                 }
             }
@@ -76,7 +78,8 @@ public class Injector {
             return correctClass;
         }
         throw new RuntimeException("Can't find class which implemented "
-                                   + certainInterface.getName() + " interface with valid annotation (Dao or Service)");
+                                   + certainInterface.getName()
+                                   + " interface with valid annotation (Dao or Service)");
     }
 
     private Object getNewInstance(Class certainClass) {
@@ -157,7 +160,8 @@ public class Injector {
                                                      + file.getName()));
                 } else if (file.getName().endsWith(".class")) {
                     classes.add(Class.forName(packageName + '.'
-                                              + file.getName().substring(0, file.getName().length() - 6)));
+                                              + file.getName()
+                                                      .substring(0, file.getName().length() - 6)));
                 }
             }
         }
