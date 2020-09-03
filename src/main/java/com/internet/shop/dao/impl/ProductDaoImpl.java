@@ -32,7 +32,8 @@ public class ProductDaoImpl implements ProductDao {
                 return product;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Storage doesn't contain product with id "
+                                           + product.getId());
     }
 
     @Override
