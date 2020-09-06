@@ -1,14 +1,19 @@
 package com.internet.shop;
 
 import com.internet.shop.lib.Injector;
+import com.internet.shop.lib.NewInjector;
+import com.internet.shop.model.Order;
 import com.internet.shop.model.Product;
 import com.internet.shop.service.ProductService;
+import java.lang.reflect.InvocationTargetException;
 
 public class WebShopApp {
     private static Injector injector = Injector.getInstance("com.internet.shop");
 
     public static void main(String[] args) {
-        ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+        //ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+        ProductService productService = (ProductService) NewInjector.getInstance(ProductService.class);
+        //WebShopApp webShopApp = (WebShopApp) injector.getInstance(WebShopApp.class);
 
         productService.create(new Product("BMW 320", 50_000));
         productService.create(new Product("BMW 530", 75_000));
