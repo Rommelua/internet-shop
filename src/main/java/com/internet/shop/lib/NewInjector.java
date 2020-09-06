@@ -29,7 +29,7 @@ public class NewInjector {
     private static Map<Class<?>, Object> interfaceImplementations = new HashMap<>();
 
     public static Object getInstance(Class<?> clazz) {
-        if (interfaceImplementations.size() == 0) {
+        if (interfaceImplementations.isEmpty()) {
             fillImplementationsMap();
         }
         Object instance = interfaceImplementations.get(clazz);
