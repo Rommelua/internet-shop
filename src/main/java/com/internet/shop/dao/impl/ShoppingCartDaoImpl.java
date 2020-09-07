@@ -23,6 +23,15 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
+    public ShoppingCart getByUserId(Long userId) {
+        return getAll().stream()
+                .filter(shoppingCart -> shoppingCart.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Storage doesn't contain ShoppingCart with userId " + userId));
+    }
+
+    @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
         List<ShoppingCart> shoppingCarts = getAll();
         for (int i = 0; i < shoppingCarts.size(); i++) {

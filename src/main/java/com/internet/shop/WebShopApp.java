@@ -36,7 +36,10 @@ public class WebShopApp {
         System.out.println();
 
         System.out.println("Adding 3 products to user A cart:");
-        ShoppingCart userACart = shoppingCartService.getByUserId(1L);
+        ShoppingCart userACart = new ShoppingCart(1L);
+        ShoppingCart userBCart = new ShoppingCart(2L);
+        shoppingCartService.create(userACart);
+        shoppingCartService.create(userBCart);
         shoppingCartService.addProduct(userACart, productService.getById(1L));
         shoppingCartService.addProduct(userACart, productService.getById(2L));
         shoppingCartService.addProduct(userACart, productService.getById(3L));
@@ -56,7 +59,6 @@ public class WebShopApp {
         System.out.println("Placing one more order for user A and user B");
         shoppingCartService.addProduct(userACart, productService.getById(3L));
         orderService.completeOrder(userACart);
-        ShoppingCart userBCart = shoppingCartService.getByUserId(2L);
         shoppingCartService.addProduct(userBCart, productService.getById(2L));
         orderService.completeOrder(userBCart);
         System.out.println("User A orders:");

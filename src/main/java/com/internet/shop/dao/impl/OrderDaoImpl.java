@@ -6,6 +6,7 @@ import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Order;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
@@ -23,6 +24,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getUserOrders(Long userId) {
+        return getAll().stream()
+                .filter(order -> order.getUserId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Order update(Order order) {
         List<Order> orders = getAll();
         for (int i = 0; i < orders.size(); i++) {
@@ -37,7 +45,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean deleteById(Long id) {
-        return getAll().removeIf(order -> order.getId().equals(id));
+        return Storage.orders.removeIf(order -> order.getId().equals(id));
     }
 
     @Override

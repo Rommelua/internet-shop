@@ -25,9 +25,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        shoppingCart.getProducts().remove(product);
+        boolean result = shoppingCart.getProducts().remove(product);
         shoppingCartDao.update(shoppingCart);
-        return true;
+        return result;
     }
 
     @Override
@@ -38,11 +38,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUserId(Long userId) {
-        return shoppingCartDao.getAll().stream()
-                .filter(shoppingCart -> shoppingCart.getUserId().equals(userId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Storage doesn't contain ShoppingCart with userId " + userId));
+        return shoppingCartDao.getByUserId(userId);
     }
 
     @Override
