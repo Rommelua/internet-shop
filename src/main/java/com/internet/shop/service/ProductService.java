@@ -3,7 +3,7 @@ package com.internet.shop.service;
 import com.internet.shop.model.Product;
 import java.util.List;
 
-public interface ProductService extends GenericService {
+public interface ProductService {
     Product create(Product product);
 
     Product getById(Long productId);
@@ -11,4 +11,6 @@ public interface ProductService extends GenericService {
     Product update(Product product);
 
     List<Product> getAll();
+
+    boolean delete(Long id);
 }

@@ -3,7 +3,7 @@ package com.internet.shop.service;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 
-public interface ShoppingCartService extends GenericService {
+public interface ShoppingCartService {
     ShoppingCart create(ShoppingCart shoppingCart);
 
     ShoppingCart addProduct(ShoppingCart shoppingCart, Product product);
@@ -13,4 +13,6 @@ public interface ShoppingCartService extends GenericService {
     void clear(ShoppingCart shoppingCart); //remove all products from the shoppingCart
 
     ShoppingCart getByUserId(Long userId);
+
+    boolean delete(Long id);
 }
