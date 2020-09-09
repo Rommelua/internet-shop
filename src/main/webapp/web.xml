@@ -5,12 +5,38 @@
          version="3.1">
     <servlet>
         <servlet-name>index</servlet-name>
-        <servlet-class>com.internet.shop.controllers.IndexController</servlet-class>
+        <servlet-class>com.internet.shop.controller.IndexController</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>index</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>com.internet.shop.controller.RegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allUsers</servlet-name>
+        <servlet-class>com.internet.shop.controller.user.UserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allUsers</servlet-name>
+        <url-pattern>/users/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addMock</servlet-name>
+        <servlet-class>com.internet.shop.controller.InjectDataController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addMock</servlet-name>
+        <url-pattern>/inject</url-pattern>
     </servlet-mapping>
 
 </web-app>
