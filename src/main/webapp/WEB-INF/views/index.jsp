@@ -12,7 +12,7 @@
     <a href="${pageContext.request.contextPath}/products/all">All products</a>
 </div>
 <div>
-    <a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">Shopping cart</a>
+    <a href="${pageContext.request.contextPath}/shopping-carts/products/">Shopping cart</a>
 </div>
 <div>
     <a href="${pageContext.request.contextPath}/products/add">Add product</a>
