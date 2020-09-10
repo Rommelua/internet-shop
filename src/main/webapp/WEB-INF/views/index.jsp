@@ -4,6 +4,14 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello world!</h1>
+<h1>Internet shop</h1>
+<ul>
+    <li><a href="${pageContext.request.contextPath}/registration">Registration</a></li>
+    <li><a href="${pageContext.request.contextPath}/products/all">All products</a></li>
+    <li><a href="${pageContext.request.contextPath}/shopping-carts/products/">Shopping cart</a></li>
+    <li><a href="${pageContext.request.contextPath}/products/add">Add product</a></li>
+    <li><a href="${pageContext.request.contextPath}/users/all">All users</a></li>
+    <li><a href="${pageContext.request.contextPath}/inject">Inject mock data to DB</a></li>
+</ul>
 </body>
 </html>

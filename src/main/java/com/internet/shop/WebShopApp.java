@@ -10,7 +10,7 @@ import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 
 public class WebShopApp {
-    private static Injector injector = Injector.getInstance("com.internet.shop");
+    private static final Injector injector = Injector.getInstance("com.internet.shop");
     private static ProductService productService;
     private static OrderService orderService;
     private static UserService userService;
