@@ -5,12 +5,12 @@ import com.internet.shop.model.Order;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.OrderService;
 import com.internet.shop.service.ShoppingCartService;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @WebServlet("/orders/create")
 public class CreateOrderController extends HttpServlet {
@@ -18,7 +18,8 @@ public class CreateOrderController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-    private final OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+    private final OrderService orderService
+            = (OrderService) injector.getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
