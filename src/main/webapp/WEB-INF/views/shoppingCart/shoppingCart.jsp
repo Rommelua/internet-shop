@@ -5,8 +5,10 @@
     <title>ShoppingCart</title>
 </head>
 <body>
-<h1>ShoppingCart</h1>
-<table border="1">
+<%@include file="/WEB-INF/views/header.jsp" %>
+<main role="main" class="container">
+<h3>ShoppingCart</h3>
+<table border="2">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -34,7 +36,6 @@
 <form method="post" action="${pageContext.request.contextPath}/orders/create">
     <button class="btn btn-primary" type="submit">Place an order</button>
 </form>
-<br/>
-<a href="${pageContext.request.contextPath}/">Back to main page</a>
+</main>
 </body>
 </html>

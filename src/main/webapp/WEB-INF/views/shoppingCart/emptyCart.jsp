@@ -4,9 +4,11 @@
     <title>ShoppingCart</title>
 </head>
 <body>
-<h1>ShoppingCart</h1>
+<%@include file="/WEB-INF/views/header.jsp" %>
+<main role="main" class="container">
+<h3>ShoppingCart</h3>
 <h4>Your sopping cart is empty, but you can fix it!</h4>
 <a href="${pageContext.request.contextPath}/products/all">All products</a><br/>
-<a href="${pageContext.request.contextPath}/">Back to main page</a>
+</main>
 </body>
 </html>

@@ -5,9 +5,10 @@
     <title>All users</title>
 </head>
 <body>
-<h1>All users page</h1>
-
-<table border="1">
+<%@include file="/WEB-INF/views/header.jsp" %>
+<main role="main" class="container">
+<h3>All users page</h3>
+<table border="2">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -31,7 +32,6 @@
         </tr>
     </c:forEach>
 </table>
-<br/>
-<a href="${pageContext.request.contextPath}/">Back to main page</a>
+</main>
 </body>
 </html>
