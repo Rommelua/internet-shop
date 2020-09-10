@@ -30,9 +30,11 @@
         </tr>
     </c:forEach>
 </table>
+<br/>
 <form method="post" action="${pageContext.request.contextPath}/orders/create">
     <button class="btn btn-primary" type="submit">Place an order</button>
 </form>
+<br/>
 <a href="${pageContext.request.contextPath}/">Back to main page</a>
 </body>
 </html>

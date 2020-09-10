@@ -15,8 +15,10 @@
         <label class="col-form-label" for="price">Price:</label><br/>
         <input class="form-control" id="price" name="price" type="text" required="required">
     </div>
+    <br/>
     <button class="btn btn-primary" type="submit">Add product</button>
 </form>
+<br/>
 <a href="${pageContext.request.contextPath}/">Back to main page</a>
 </body>
 </html>

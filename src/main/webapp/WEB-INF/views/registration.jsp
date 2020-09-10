@@ -23,8 +23,10 @@
         <label class="col-form-label" for="passwordRepeat">Repeat password:</label><br/>
         <input class="form-control" id="passwordRepeat" name="pswRep" type="password" required="required">
     </div>
+    <br/>
     <button class="btn btn-primary" type="submit">Register</button>
 </form>
+<br/>
 <a href="${pageContext.request.contextPath}/">Back to main page</a>
 </body>
 </html>
