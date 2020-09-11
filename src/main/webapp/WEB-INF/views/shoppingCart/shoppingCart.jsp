@@ -33,7 +33,7 @@
     </c:forEach>
 </table>
 <br/>
-<form method="post" action="${pageContext.request.contextPath}/orders/create">
+<form method="post" action="${pageContext.request.contextPath}/orders/complete">
     <button class="btn btn-primary" type="submit">Place an order</button>
 </form>
 </main>
