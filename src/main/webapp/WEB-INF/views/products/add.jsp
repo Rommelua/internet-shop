@@ -4,7 +4,9 @@
     <title>Add product</title>
 </head>
 <body>
-<h2>Please fill the form to add a new product</h2>
+<%@include file="/WEB-INF/views/header.jsp" %>
+<main role="main" class="container">
+<h3>Please fill the form to add a new product</h3>
 <h4 style="color: red">${message}</h4>
 <form method="post" action="${pageContext.request.contextPath}/products/add">
     <div class="form-group">
@@ -15,8 +17,9 @@
         <label class="col-form-label" for="price">Price:</label><br/>
         <input class="form-control" id="price" name="price" type="text" required="required">
     </div>
+    <br/>
     <button class="btn btn-primary" type="submit">Add product</button>
 </form>
-<a href="${pageContext.request.contextPath}/">Back to main page</a>
+</main>
 </body>
 </html>

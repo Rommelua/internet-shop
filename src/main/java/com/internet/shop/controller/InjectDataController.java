@@ -33,6 +33,8 @@ public class InjectDataController extends HttpServlet {
         productService.create(new Product("BMW 530", 75_000));
         productService.create(new Product("BMW X5M50D", 120_000));
         shoppingCartService.create(new ShoppingCart(1L));
+        shoppingCartService.create(new ShoppingCart(2L));
+        shoppingCartService.create(new ShoppingCart(3L));
         req.getRequestDispatcher("/WEB-INF/views/inject.jsp").forward(req, resp);
     }
 }

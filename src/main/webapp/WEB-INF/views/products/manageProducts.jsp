@@ -2,36 +2,38 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All users</title>
+    <title>All products</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/header.jsp" %>
 <main role="main" class="container">
-<h3>All users page</h3>
+<h3>All products</h3>
 <table border="2">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Login</th>
+        <th>Price</th>
         <th>Delete</th>
     </tr>
-    <c:forEach var="user" items="${users}">
+    <c:forEach var="product" items="${products}">
         <tr>
             <td>
-                <c:out value="${user.id}"/>
+                <c:out value="${product.id}"/>
             </td>
             <td>
-                <c:out value="${user.name}"/>
+                <c:out value="${product.name}"/>
             </td>
             <td>
-                <c:out value="${user.login}"/>
+                <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/users/delete?id=${user.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/products/delete?id=${product.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
+<br/>
+<a href="${pageContext.request.contextPath}/products/add">Add product</a><br/>
 </main>
 </body>
 </html>

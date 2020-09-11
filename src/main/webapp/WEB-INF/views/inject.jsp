@@ -4,7 +4,7 @@
     <title>Demo</title>
 </head>
 <body>
-<h3>Your mock data was added to DB</h3>
-<a href="${pageContext.request.contextPath}/">Back to main page</a>
+<%@include file="header.jsp"%>
+<h4>The mock data has been added to DB</h4>
 </body>
 </html>

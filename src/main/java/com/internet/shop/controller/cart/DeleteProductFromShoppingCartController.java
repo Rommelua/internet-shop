@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/shopping-carts/products/add")
-public class AddProductToShoppingCartController extends HttpServlet {
+@WebServlet("/shopping-carts/products/delete")
+public class DeleteProductFromShoppingCartController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final ShoppingCartService shoppingCartService =
@@ -28,8 +28,7 @@ public class AddProductToShoppingCartController extends HttpServlet {
         String productId = req.getParameter("id");
         long id = Long.parseLong(productId);
         Product product = productService.getById(id);
-        shoppingCartService.addProduct(shoppingCart, product);
-        req.getRequestDispatcher("/WEB-INF/views/shoppingCart/productHasAddedToCard.jsp")
-                .forward(req, resp);
+        shoppingCartService.deleteProduct(shoppingCart, product);
+        resp.sendRedirect(req.getContextPath() + "/shopping-carts/products/");
     }
 }
