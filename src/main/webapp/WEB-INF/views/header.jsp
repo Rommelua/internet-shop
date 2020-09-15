@@ -23,10 +23,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login">Log In</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}${firstURL}">${firstButton}</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/registration">Sign Up</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}${secondURL}">${secondButton}</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="${pageContext.request.contextPath}/products/all">All products</a>
