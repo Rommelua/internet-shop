@@ -15,7 +15,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {
@@ -40,8 +39,7 @@ public class AuthenticationFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        HttpSession session = req.getSession();
-        Long userId = (Long) session.getAttribute(LoginController.USER_ID);
+        Long userId = (Long) req.getSession().getAttribute(LoginController.USER_ID);
         if (userId == null || userService.get(userId) == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
