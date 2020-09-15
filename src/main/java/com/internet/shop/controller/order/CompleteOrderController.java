@@ -1,5 +1,6 @@
 package com.internet.shop.controller.order;
 
+import com.internet.shop.controller.LoginController;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Order;
 import com.internet.shop.model.ShoppingCart;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/orders/complete")
 public class CompleteOrderController extends HttpServlet {
-    private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
@@ -30,7 +30,8 @@ public class CompleteOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+        Long userId = (Long) req.getSession().getAttribute(LoginController.USER_ID);
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
         Order order = orderService.completeOrder(shoppingCart);
         req.setAttribute("orderId", order.getId());
         req.getRequestDispatcher("/WEB-INF/views/orders/orderCreated.jsp").forward(req, resp);
