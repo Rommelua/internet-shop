@@ -30,6 +30,7 @@ public class AuthorisationFilter implements Filter {
         protectedUrls.put("/products/manage", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/users/all", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/orders/all", Set.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/orders/delete", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/shopping-carts/products/", Set.of(Role.RoleName.USER));
         protectedUrls.put("/shopping-carts/products/add", Set.of(Role.RoleName.USER));
         protectedUrls.put("/shopping-carts/products/delete", Set.of(Role.RoleName.USER));
@@ -59,7 +60,6 @@ public class AuthorisationFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 
     private boolean isAuthorised(User user, Set<Role.RoleName> roleNames) {
