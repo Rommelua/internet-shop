@@ -2,6 +2,7 @@ package com.internet.shop.dao.jdbc;
 
 import com.internet.shop.dao.ProductDao;
 import com.internet.shop.exception.DataProcessingException;
+import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
 import com.internet.shop.util.ConnectionUtil;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Dao
 public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public Product create(Product product) {
@@ -35,7 +37,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Optional<Product> getById(Long id) {
-        try (Connection connection = ConnectionUtil.getConnection()){
+        try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT name, price FROM products WHERE id = ? AND deleted = FALSE");
             statement.setLong(1, id);
@@ -53,9 +55,9 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        try (Connection connection = ConnectionUtil.getConnection()){
+        try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE products SET name = ?, price = ? WHERE id = ?");
+                    "UPDATE products SET name = ?, price = ? WHERE id = ? AND deleted = FALSE");
             statement.setString(1, product.getName());
             statement.setDouble(2, product.getPrice());
             statement.setLong(3, product.getId());
@@ -68,7 +70,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean deleteById(Long id) {
-        try (Connection connection = ConnectionUtil.getConnection()){
+        try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE products SET deleted = TRUE WHERE id = ?");
             statement.setLong(1, id);
