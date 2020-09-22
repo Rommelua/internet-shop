@@ -21,16 +21,19 @@ VALUES ('BMW 320 I', '50000'),
 CREATE TABLE public.users
 (
     id bigserial NOT NULL,
-    name character varying(256),
-    login character varying(256),
-    password character varying(256),
-    PRIMARY KEY (id)
+    name character varying(256) NOT NULL,
+    login character varying(256) NOT NULL,
+    password character varying(256) NOT NULL,
+    deleted boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (id),
+    UNIQUE (login)
 );
 
 CREATE TABLE public.orders
 (
     id bigserial NOT NULL,
     user_id bigint NOT NULL,
+    deleted boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
@@ -59,6 +62,7 @@ CREATE TABLE public.shopping_carts
 (
     id bigserial NOT NULL,
     user_id bigint NOT NULL,
+    deleted boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id)
 );
 
@@ -81,9 +85,13 @@ CREATE TABLE public.shopping_carts_products
 CREATE TABLE public.roles
 (
     id bigserial NOT NULL,
-    name character varying(256) NOT NULL,
+    role_name character varying(256) NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO roles(role_name)
+VALUES ('ADMIN'),
+       ('USER');
 
 CREATE TABLE public.users_roles
 (

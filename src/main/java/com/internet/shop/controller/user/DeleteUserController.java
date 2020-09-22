@@ -22,9 +22,9 @@ public class DeleteUserController extends HttpServlet {
             throws ServletException, IOException {
         String id = req.getParameter("id");
         long userId = Long.parseLong(id);
-        userService.delete(userId);
         long shoppingCartId = shoppingCartService.getByUserId(userId).getId();
         shoppingCartService.delete(shoppingCartId);
+        userService.delete(userId);
         resp.sendRedirect(req.getContextPath() + "/users/all");
     }
 }
