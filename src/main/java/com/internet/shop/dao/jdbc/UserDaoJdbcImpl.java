@@ -22,18 +22,22 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO users(name, login, password) VALUES (?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getLogin());
-            statement.setString(3, user.getPassword());
-            statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                user.setId(resultSet.getLong("id"));
+            String sql = "INSERT INTO users(name, login, password) VALUES (?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS)) {
+                statement.setString(1, user.getName());
+                statement.setString(2, user.getLogin());
+                statement.setString(3, user.getPassword());
+                statement.executeUpdate();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    user.setId(resultSet.getLong("id"));
+                }
             }
             addRolesToDB(user, connection);
+            for (Role role : user.getRoles()) {
+                setIdToRole(role, connection);
+            }
             return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Creation user " + user + " failed", e);
@@ -102,14 +106,15 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User update(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE users SET name = ?, login = ?, password = ? "
-                    + "WHERE id = ? AND deleted = FALSE");
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getLogin());
-            statement.setString(3, user.getPassword());
-            statement.setLong(4, user.getId());
-            statement.executeUpdate();
+            String sql = "UPDATE users SET name = ?, login = ?, password = ? "
+                         + "WHERE id = ? AND deleted = FALSE";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, user.getName());
+                statement.setString(2, user.getLogin());
+                statement.setString(3, user.getPassword());
+                statement.setLong(4, user.getId());
+                statement.executeUpdate();
+            }
             deleteRolesFromDB(user.getId(), connection);
             addRolesToDB(user, connection);
             return user;
@@ -132,20 +137,33 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private void addRolesToDB(User user, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO users_roles VALUES (?, ?)");
-        statement.setLong(1, user.getId());
-        for (Role role : user.getRoles()) {
-            statement.setLong(2, role.getRoleName().ordinal() + 1);
-            statement.executeUpdate();
+        String sql = "INSERT INTO users_roles VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, user.getId());
+            for (Role role : user.getRoles()) {
+                statement.setLong(2, role.getRoleName().ordinal() + 1);
+                statement.executeUpdate();
+            }
+        }
+    }
+
+    private void setIdToRole(Role role, Connection connection) throws SQLException {
+        String sql = "SELECT id FROM roles WHERE role_name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, role.getRoleName().toString());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                role.setId(resultSet.getLong("id"));
+            }
         }
     }
 
     private void deleteRolesFromDB(Long userId, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM users_roles WHERE user_id = ?");
-        statement.setLong(1, userId);
-        statement.executeUpdate();
+        String sql = "DELETE FROM users_roles WHERE user_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, userId);
+            statement.executeUpdate();
+        }
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {

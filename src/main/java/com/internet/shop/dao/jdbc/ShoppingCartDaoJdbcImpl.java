@@ -20,14 +20,15 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO shopping_carts(user_id) VALUES (?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, shoppingCart.getUserId());
-            statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                shoppingCart.setId(resultSet.getLong("id"));
+            String sql = "INSERT INTO shopping_carts(user_id) VALUES (?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS)) {
+                statement.setLong(1, shoppingCart.getUserId());
+                statement.executeUpdate();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    shoppingCart.setId(resultSet.getLong("id"));
+                }
             }
             addProductsToDB(shoppingCart, connection);
             return shoppingCart;
@@ -146,20 +147,22 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     }
 
     private void deleteProductsFromDB(Long id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM shopping_carts_products WHERE cart_id = ?");
-        statement.setLong(1, id);
-        statement.executeUpdate();
+        String sql = "DELETE FROM shopping_carts_products WHERE cart_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        }
     }
 
     private void addProductsToDB(ShoppingCart shoppingCart, Connection connection)
             throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO shopping_carts_products VALUES (?, ?)");
-        statement.setLong(1, shoppingCart.getId());
-        for (Product product : shoppingCart.getProducts()) {
-            statement.setLong(2, product.getId());
-            statement.executeUpdate();
+        String sql = "INSERT INTO shopping_carts_products VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, shoppingCart.getId());
+            for (Product product : shoppingCart.getProducts()) {
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
+            }
         }
     }
 }

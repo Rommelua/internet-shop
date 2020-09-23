@@ -20,14 +20,15 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Order create(Order order) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO orders(user_id) VALUES (?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, order.getUserId());
-            statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("id"));
+            String sql = "INSERT INTO orders(user_id) VALUES (?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS)) {
+                statement.setLong(1, order.getUserId());
+                statement.executeUpdate();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    order.setId(resultSet.getLong("id"));
+                }
             }
             addProductsToDB(order, connection);
             return order;
@@ -140,19 +141,21 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private void deleteProductsFromDB(Long orderId, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM orders_products WHERE order_id = ?");
-        statement.setLong(1, orderId);
-        statement.executeUpdate();
+        String sql = "DELETE FROM orders_products WHERE order_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, orderId);
+            statement.executeUpdate();
+        }
     }
 
     private void addProductsToDB(Order order, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO orders_products VALUES (?, ?)");
-        statement.setLong(1, order.getId());
-        for (Product product : order.getProducts()) {
-            statement.setLong(2, product.getId());
-            statement.executeUpdate();
+        String sql = "INSERT INTO orders_products VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, order.getId());
+            for (Product product : order.getProducts()) {
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
+            }
         }
     }
 }
