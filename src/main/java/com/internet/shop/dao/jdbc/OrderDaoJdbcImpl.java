@@ -64,7 +64,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                     + "JOIN orders_products op ON o.id = op.order_id "
                     + "JOIN products p on op.product_id = p.id "
                     + "WHERE o.user_id = ? AND o.deleted = FALSE",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             statement.setLong(1, userId);
             return getOrdersListFromStatement(statement);
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                     + "JOIN orders_products op ON o.id = op.order_id "
                     + "JOIN products p on op.product_id = p.id "
                     + "WHERE o.deleted = FALSE ORDER BY o.id",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             return getOrdersListFromStatement(statement);
         } catch (SQLException e) {
             throw new DataProcessingException("Can not get items from DB", e);

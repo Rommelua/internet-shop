@@ -78,7 +78,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                     + "JOIN shopping_carts_products cp ON c.id = cp.cart_id "
                     + "JOIN products p on cp.product_id = p.id "
                     + "WHERE c.deleted = FALSE",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = statement.executeQuery();
             List<ShoppingCart> carts = new ArrayList<>();
             while (resultSet.next()) {

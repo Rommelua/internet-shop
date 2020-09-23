@@ -90,7 +90,7 @@ public class UserDaoJdbcImpl implements UserDao {
                     + "JOIN users_roles ur ON u.id = ur.user_id "
                     + "JOIN roles r on ur.role_id = r.id "
                     + "WHERE deleted = FALSE ORDER BY u.id",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = statement.executeQuery();
             List<User> allUsers = new ArrayList<>();
             while (resultSet.next()) {
