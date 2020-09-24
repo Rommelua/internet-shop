@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AuthorizationFilter implements Filter {
-    private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private final UserService userService = (UserService) injector.getInstance(UserService.class);
+    private final UserService userService = (UserService) Injector.getInstance(UserService.class);
     private final Map<String, Set<Role.RoleName>> protectedUrls = new HashMap<>();
 
     @Override

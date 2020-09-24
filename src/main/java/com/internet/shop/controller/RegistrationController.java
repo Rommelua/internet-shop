@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/registration")
 public class RegistrationController extends HttpServlet {
-    private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private final UserService userService = (UserService) injector.getInstance(UserService.class);
+    private final UserService userService
+            = (UserService) Injector.getInstance(UserService.class);
     private final ShoppingCartService shoppingCartService
-            = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+            = (ShoppingCartService) Injector.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

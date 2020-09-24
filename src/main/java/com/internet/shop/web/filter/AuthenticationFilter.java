@@ -24,8 +24,7 @@ public class AuthenticationFilter implements Filter {
     private static final String REGISTRATION_URL = "/registration";
     private static final String REGISTRATION_BUTTON = "Sign Up";
     private static final String USERNAME_BUTTON = "Hello, ";
-    private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private final UserService userService = (UserService) injector.getInstance(UserService.class);
+    private final UserService userService = (UserService) Injector.getInstance(UserService.class);
     private final Set<String> allowedUrls = new HashSet<>();
 
     @Override

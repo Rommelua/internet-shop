@@ -15,11 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/orders/complete")
 public class CompleteOrderController extends HttpServlet {
-    private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final ShoppingCartService shoppingCartService =
-            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+            (ShoppingCartService) Injector.getInstance(ShoppingCartService.class);
     private final OrderService orderService
-            = (OrderService) injector.getInstance(OrderService.class);
+            = (OrderService) Injector.getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
