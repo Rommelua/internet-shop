@@ -28,7 +28,7 @@ public class AuthenticationFilter implements Filter {
     private final Set<String> allowedUrls = new HashSet<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         allowedUrls.add("/registration");
         allowedUrls.add("/login");
         allowedUrls.add("/");

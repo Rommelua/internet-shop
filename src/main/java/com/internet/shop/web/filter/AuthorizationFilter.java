@@ -23,7 +23,7 @@ public class AuthorizationFilter implements Filter {
     private final Map<String, Set<Role.RoleName>> protectedUrls = new HashMap<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         protectedUrls.put("/products/manage", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/delete", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/add", Set.of(Role.RoleName.ADMIN));
