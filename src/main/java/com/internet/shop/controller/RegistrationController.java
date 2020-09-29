@@ -6,6 +6,7 @@ import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
+import com.internet.shop.util.HashUtil;
 import java.io.IOException;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -36,7 +37,9 @@ public class RegistrationController extends HttpServlet {
         String passwordRep = req.getParameter("pswRep");
 
         if (password.equals(passwordRep)) {
-            User user = new User(name, login, password, Set.of(Role.of("USER")));
+            byte[] salt = HashUtil.getSalt();
+            String hashPassword = HashUtil.hashPassword(password, salt);
+            User user = new User(name, login, hashPassword, salt, Set.of(Role.of("USER")));
             userService.create(user);
             shoppingCartService.create(new ShoppingCart(user.getId()));
             resp.sendRedirect(req.getContextPath() + "/");

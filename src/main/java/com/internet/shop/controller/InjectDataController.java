@@ -6,6 +6,7 @@ import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
+import com.internet.shop.util.HashUtil;
 import java.io.IOException;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -24,13 +25,29 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        userService.create(new User("admin", "admin", "1111", Set.of(Role.of("ADMIN"))));
-        userService.create(new User("User A", "userA", "1111", Set.of(Role.of("USER"))));
-        userService.create(new User("User B", "userB", "1111", Set.of(Role.of("USER"))));
-        userService.create(new User("User C", "userC", "1111", Set.of(Role.of("USER"))));
-        shoppingCartService.create(new ShoppingCart(3L));
-        shoppingCartService.create(new ShoppingCart(4L));
-        shoppingCartService.create(new ShoppingCart(5L));
+        User admin = new User("admin", "admin", "1111",
+                HashUtil.getSalt(), Set.of(Role.of("ADMIN")));
+        String password = HashUtil.hashPassword(admin.getPassword(), admin.getSalt());
+        admin.setPassword(password);
+        userService.create(admin);
+        User userA = new User("User A", "userA", "1111",
+                HashUtil.getSalt(), Set.of(Role.of("USER")));
+        password = HashUtil.hashPassword(userA.getPassword(), userA.getSalt());
+        userA.setPassword(password);
+        userService.create(userA);
+        User userB = new User("User B", "userB", "1111",
+                HashUtil.getSalt(), Set.of(Role.of("USER")));
+        password = HashUtil.hashPassword(userB.getPassword(), userB.getSalt());
+        userB.setPassword(password);
+        userService.create(userB);
+        User userC = new User("User C", "userC", "1111",
+                HashUtil.getSalt(), Set.of(Role.of("USER")));
+        password = HashUtil.hashPassword(userC.getPassword(), userC.getSalt());
+        userC.setPassword(password);
+        userService.create(userC);
+        shoppingCartService.create(new ShoppingCart(userA.getId()));
+        shoppingCartService.create(new ShoppingCart(userB.getId()));
+        shoppingCartService.create(new ShoppingCart(userC.getId()));
         req.getRequestDispatcher("/WEB-INF/views/inject.jsp").forward(req, resp);
     }
 }

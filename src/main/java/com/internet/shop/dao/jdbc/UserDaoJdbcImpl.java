@@ -22,12 +22,13 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            String sql = "INSERT INTO users(name, login, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users(name, login, password, salt) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, user.getName());
                 statement.setString(2, user.getLogin());
                 statement.setString(3, user.getPassword());
+                statement.setBytes(4, user.getSalt());
                 statement.executeUpdate();
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
@@ -106,13 +107,14 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User update(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            String sql = "UPDATE users SET name = ?, login = ?, password = ? "
+            String sql = "UPDATE users SET name = ?, login = ?, password = ?, salt = ? "
                          + "WHERE id = ? AND deleted = FALSE";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, user.getName());
                 statement.setString(2, user.getLogin());
                 statement.setString(3, user.getPassword());
-                statement.setLong(4, user.getId());
+                statement.setBytes(4, user.getSalt());
+                statement.setLong(5, user.getId());
                 statement.executeUpdate();
             }
             deleteRolesFromDB(user.getId(), connection);
@@ -171,10 +173,11 @@ public class UserDaoJdbcImpl implements UserDao {
         String name = resultSet.getString("name");
         String login = resultSet.getString("login");
         String password = resultSet.getString("password");
+        byte[] salt = resultSet.getBytes("salt");
         Set<Role> roles = new HashSet<>();
         do {
             roles.add(Role.of(resultSet.getString("role_name")));
         } while (resultSet.next() && id == resultSet.getLong("id"));
-        return new User(id, name, login, password, roles);
+        return new User(id, name, login, password, salt, roles);
     }
 }
