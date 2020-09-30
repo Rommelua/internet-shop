@@ -20,11 +20,10 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String name, String login, String password, byte[] salt, Set<Role> roles) {
+    public User(String name, String login, String password, Set<Role> roles) {
         this.name = name;
         this.login = login;
         this.password = password;
-        this.salt = salt;
         this.roles = roles;
     }
 

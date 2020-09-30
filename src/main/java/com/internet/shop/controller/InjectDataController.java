@@ -6,7 +6,6 @@ import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
-import com.internet.shop.util.HashUtil;
 import java.io.IOException;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -25,25 +24,13 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User admin = new User("admin", "admin", "1111",
-                HashUtil.getSalt(), Set.of(Role.of("ADMIN")));
-        String password = HashUtil.hashPassword(admin.getPassword(), admin.getSalt());
-        admin.setPassword(password);
+        User admin = new User("admin", "admin", "1111", Set.of(Role.of("ADMIN")));
         userService.create(admin);
-        User userA = new User("User A", "userA", "1111",
-                HashUtil.getSalt(), Set.of(Role.of("USER")));
-        password = HashUtil.hashPassword(userA.getPassword(), userA.getSalt());
-        userA.setPassword(password);
+        User userA = new User("User A", "userA", "1111", Set.of(Role.of("USER")));
         userService.create(userA);
-        User userB = new User("User B", "userB", "1111",
-                HashUtil.getSalt(), Set.of(Role.of("USER")));
-        password = HashUtil.hashPassword(userB.getPassword(), userB.getSalt());
-        userB.setPassword(password);
+        User userB = new User("User B", "userB", "1111", Set.of(Role.of("USER")));
         userService.create(userB);
-        User userC = new User("User C", "userC", "1111",
-                HashUtil.getSalt(), Set.of(Role.of("USER")));
-        password = HashUtil.hashPassword(userC.getPassword(), userC.getSalt());
-        userC.setPassword(password);
+        User userC = new User("User C", "userC", "1111", Set.of(Role.of("USER")));
         userService.create(userC);
         shoppingCartService.create(new ShoppingCart(userA.getId()));
         shoppingCartService.create(new ShoppingCart(userB.getId()));
