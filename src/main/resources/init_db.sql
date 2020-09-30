@@ -25,7 +25,7 @@ CREATE TABLE public.users
     login character varying(256) NOT NULL,
     password character varying(256) NOT NULL,
     deleted boolean NOT NULL DEFAULT false,
-    salt bytea,
+    salt bytea NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (login)
 );
