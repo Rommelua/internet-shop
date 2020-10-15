@@ -34,7 +34,6 @@ public class RegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("psw");
         String passwordRep = req.getParameter("pswRep");
-
         if (password.equals(passwordRep)) {
             User user = new User(name, login, password, Set.of(Role.of("USER")));
             userService.create(user);
