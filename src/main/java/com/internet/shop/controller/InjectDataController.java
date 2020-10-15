@@ -26,15 +26,9 @@ public class InjectDataController extends HttpServlet {
             throws ServletException, IOException {
         User admin = new User("admin", "admin", "1111", Set.of(Role.of("ADMIN")));
         userService.create(admin);
-        User userA = new User("User A", "userA", "1111", Set.of(Role.of("USER")));
+        User userA = new User("user", "user", "1111", Set.of(Role.of("USER")));
         userService.create(userA);
-        User userB = new User("User B", "userB", "1111", Set.of(Role.of("USER")));
-        userService.create(userB);
-        User userC = new User("User C", "userC", "1111", Set.of(Role.of("USER")));
-        userService.create(userC);
         shoppingCartService.create(new ShoppingCart(userA.getId()));
-        shoppingCartService.create(new ShoppingCart(userB.getId()));
-        shoppingCartService.create(new ShoppingCart(userC.getId()));
         req.getRequestDispatcher("/WEB-INF/views/inject.jsp").forward(req, resp);
     }
 }
