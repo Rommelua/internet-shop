@@ -60,7 +60,6 @@ Hashing and salting of user's password are implemented, so nobody has access to 
 * Maven 4.0.0
 * javax.servlet 3.1.0
 * jstl 1.2
-* log4j 1.2.17
 * maven-checkstyle-plugin
 * PostgreSQL 12
 <hr> 
@@ -77,9 +76,6 @@ Add this project to your IDE as Maven project.
 Configure Tomcat : 
 * Add artifact
 * Add Java SDK 11
-
-Change a path in src.main.java.resources.log4j.properties. It has to reach your logFile.
-
 
 #### If you want to test it using SQL DataBase, you should: 
 
