@@ -55,7 +55,7 @@ DAO layer has two implementations which gives you a possibility to test it both
 on inner storage and on storage based on PostgreSQL DataBase.
 Hashing and salting of user's password are implemented, so nobody has access to your secret data.
 
-# <a name="structure"></a>Project structure
+# <a name="structure"></a>Used technologies
 * Java 11
 * Maven 4.0.0
 * javax.servlet 3.1.0
