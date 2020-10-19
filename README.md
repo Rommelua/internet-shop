@@ -14,7 +14,7 @@ It reproduces the main functions and opportunities
 of online shopping.
 <hr>
 
-#### The main functions of Internet-Shop: 
+### The main functions of Internet-Shop: 
 * Registration and log in forms
 * Shopping cart and order services
 * Two roles: User and Admin
@@ -51,8 +51,7 @@ In order to add some security and give the access to appropriate resources,
 depending on the role,
 authentication and authorization filters were implemented. 
 
-DAO layer has two implementations which gives you a possibility to test it both
-on inner storage and on storage based on PostgreSQL DataBase.
+DAO layer has implementation based on JDBC and PostgreSQL DataBase.
 Hashing and salting of user's password are implemented, so nobody has access to your secret data.
 
 # <a name="structure"></a>Used technologies
